@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SAARC Time Zone - Professional</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+            color: #2c3e50;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 30px 0 20px;
+            position: relative;
+        }
+        
+        .header::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background: linear-gradient(90deg, #4285f4, #34a853);
+            border-radius: 2px;
+        }
+        
+        .header h1 {
+            font-size: 32px;
+            font-weight: 700;
+            color: #1a1a1a;
+            margin-bottom: 8px;
+            letter-spacing: -0.5px;
+        }
+        
+        .header p {
+            color: #6c757d;
+            font-size: 16px;
+            font-weight: 400;
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            width: 100%;
+            flex-grow: 1;
+        }
+        
+        .time-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        
+        .time-card {
+            background: #ffffff;
+            border-radius: 16px;
+            padding: 24px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+            display: flex;
+            align-items: center;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(0, 0, 0, 0.03);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .time-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: #e9ecef;
+            transition: width 0.3s ease;
+        }
+        
+        .time-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .time-card:hover::before {
+            width: 6px;
+        }
+        
+        .indian-time {
+            background: linear-gradient(135deg, #ffffff 0%, #f0f8ff 100%);
+        }
+        
+        .indian-time::before {
+            background: linear-gradient(180deg, #4285f4, #34a853);
+        }
+        
+        .country-flag {
+            width: 60px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #f8f9fa;
+            border-radius: 12px;
+            margin-right: 20px;
+            font-size: 28px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            flex-shrink: 0;
+        }
+        
+        .country-info {
+            flex-grow: 1;
+        }
+        
+        .country-name {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #2c3e50;
+            display: flex;
+            align-items: center;
+        }
+        
+        .country-code {
+            font-size: 12px;
+            font-weight: 500;
+            color: #6c757d;
+            background: #f1f3f5;
+            padding: 2px 8px;
+            border-radius: 4px;
+            margin-left: 8px;
+        }
+        
+        .time-display {
+            font-size: 24px;
+            font-weight: 700;
+            color: #1a1a1a;
+            font-variant-numeric: tabular-nums;
+            letter-spacing: -0.5px;
+        }
+        
+        .date-display {
+            font-size: 13px;
+            color: #6c757d;
+            margin-top: 6px;
+            font-weight: 500;
+        }
+        
+        .timezone-display {
+            font-size: 11px;
+            color: #868e96;
+            margin-top: 4px;
+            font-weight: 400;
+            font-style: italic;
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 30px 0 20px;
+            color: #000000; /* Changed to black */
+            font-size: 14px;
+            font-weight: 500;
+        }
+        
+        .footer a {
+            color: #000000; /* Changed to black */
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.2s ease;
+        }
+        
+        .footer a:hover {
+            color: #34a853;
+        }
+        
+        .pulse {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            background-color: #34a853;
+            border-radius: 50%;
+            margin-right: 8px;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(52, 168, 83, 0.7);
+            }
+            70% {
+                box-shadow: 0 0 0 10px rgba(52, 168, 83, 0);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(52, 168, 83, 0);
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 28px;
+            }
+            
+            .time-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .time-card {
+                padding: 20px;
+            }
+            
+            .country-flag {
+                width: 50px;
+                height: 50px;
+                font-size: 24px;
+            }
+            
+            .time-display {
+                font-size: 22px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            body {
+                padding: 15px;
+            }
+            
+            .header {
+                margin-bottom: 30px;
+                padding: 20px 0 15px;
+            }
+            
+            .time-card {
+                padding: 16px;
+            }
+            
+            .country-name {
+                font-size: 16px;
+            }
+            
+            .time-display {
+                font-size: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>SAARC Time Zone</h1>
+        <p><span class="pulse"></span>Real-time clock across South Asian countries</p>
+    </div>
+    
+    <div class="container">
+        <div class="time-grid">
+            <div class="time-card indian-time" id="india">
+                <div class="country-flag">🇮🇳</div>
+                <div class="country-info">
+                    <div class="country-name">India <span class="country-code">IST</span></div>
+                    <div class="time-display" id="india-time">--:--:--</div>
+                    <div class="date-display" id="india-date">Loading...</div>
+                    <div class="timezone-display" id="india-timezone">UTC+5:30</div>
+                </div>
+            </div>
+            
+            <div class="time-card" id="afghanistan">
+                <div class="country-flag">🇦🇫</div>
+                <div class="country-info">
+                    <div class="country-name">Afghanistan <span class="country-code">AFT</span></div>
+                    <div class="time-display" id="afghanistan-time">--:--:--</div>
+                    <div class="date-display" id="afghanistan-date">Loading...</div>
+                    <div class="timezone-display" id="afghanistan-timezone">UTC+4:30</div>
+                </div>
+            </div>
+            
+            <div class="time-card" id="bangladesh">
+                <div class="country-flag">🇧🇩</div>
+                <div class="country-info">
+                    <div class="country-name">Bangladesh <span class="country-code">BST</span></div>
+                    <div class="time-display" id="bangladesh-time">--:--:--</div>
+                    <div class="date-display" id="bangladesh-date">Loading...</div>
+                    <div class="timezone-display" id="bangladesh-timezone">UTC+6:00</div>
+                </div>
+            </div>
+            
+            <div class="time-card" id="bhutan">
+                <div class="country-flag">🇧🇹</div>
+                <div class="country-info">
+                    <div class="country-name">Bhutan <span class="country-code">BTT</span></div>
+                    <div class="time-display" id="bhutan-time">--:--:--</div>
+                    <div class="date-display" id="bhutan-date">Loading...</div>
+                    <div class="timezone-display" id="bhutan-timezone">UTC+6:00</div>
+                </div>
+            </div>
+            
+            <div class="time-card" id="maldives">
+                <div class="country-flag">🇲🇻</div>
+                <div class="country-info">
+                    <div class="country-name">Maldives <span class="country-code">MVT</span></div>
+                    <div class="time-display" id="maldives-time">--:--:--</div>
+                    <div class="date-display" id="maldives-date">Loading...</div>
+                    <div class="timezone-display" id="maldives-timezone">UTC+5:00</div>
+                </div>
+            </div>
+            
+            <div class="time-card" id="nepal">
+                <div class="country-flag">🇳🇵</div>
+                <div class="country-info">
+                    <div class="country-name">Nepal <span class="country-code">NPT</span></div>
+                    <div class="time-display" id="nepal-time">--:--:--</div>
+                    <div class="date-display" id="nepal-date">Loading...</div>
+                    <div class="timezone-display" id="nepal-timezone">UTC+5:45</div>
+                </div>
+            </div>
+            
+            <div class="time-card" id="pakistan">
+                <div class="country-flag">🇵🇰</div>
+                <div class="country-info">
+                    <div class="country-name">Pakistan <span class="country-code">PKT</span></div>
+                    <div class="time-display" id="pakistan-time">--:--:--</div>
+                    <div class="date-display" id="pakistan-date">Loading...</div>
+                    <div class="timezone-display" id="pakistan-timezone">UTC+5:00</div>
+                </div>
+            </div>
+            
+            <div class="time-card" id="srilanka">
+                <div class="country-flag">🇱🇰</div>
+                <div class="country-info">
+                    <div class="country-name">Sri Lanka <span class="country-code">SLT</span></div>
+                    <div class="time-display" id="srilanka-time">--:--:--</div>
+                    <div class="date-display" id="srilanka-date">Loading...</div>
+                    <div class="timezone-display" id="srilanka-timezone">UTC+5:30</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="footer">
+        Made with ❤️ by <a href="#">Sauravhhh</a>
+    </div>
+    
+    <script>
+        // Time zone data for SAARC countries
+        const timeZones = {
+            india: { timezone: 'Asia/Kolkata', code: 'IST', offset: 'UTC+5:30' },
+            afghanistan: { timezone: 'Asia/Kabul', code: 'AFT', offset: 'UTC+4:30' },
+            bangladesh: { timezone: 'Asia/Dhaka', code: 'BST', offset: 'UTC+6:00' },
+            bhutan: { timezone: 'Asia/Thimphu', code: 'BTT', offset: 'UTC+6:00' },
+            maldives: { timezone: 'Indian/Maldives', code: 'MVT', offset: 'UTC+5:00' },
+            nepal: { timezone: 'Asia/Kathmandu', code: 'NPT', offset: 'UTC+5:45' },
+            pakistan: { timezone: 'Asia/Karachi', code: 'PKT', offset: 'UTC+5:00' },
+            srilanka: { timezone: 'Asia/Colombo', code: 'SLT', offset: 'UTC+5:30' }
+        };
+        
+        // Function to update time for a specific country
+        function updateTime(country) {
+            const timeZone = timeZones[country].timezone;
+            const now = new Date();
+            
+            // Format time in 12-hour format
+            const timeOptions = {
+                timeZone: timeZone,
+                hour12: true,
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit'
+            };
+            
+            // Format date
+            const dateOptions = {
+                timeZone: timeZone,
+                weekday: 'long',
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+            };
+            
+            const timeString = now.toLocaleTimeString('en-US', timeOptions);
+            const dateString = now.toLocaleDateString('en-US', dateOptions);
+            
+            // Update DOM elements
+            document.getElementById(`${country}-time`).textContent = timeString;
+            document.getElementById(`${country}-date`).textContent = dateString;
+        }
+        
+        // Function to update all times
+        function updateAllTimes() {
+            Object.keys(timeZones).forEach(country => {
+                updateTime(country);
+            });
+        }
+        
+        // Initial update
+        updateAllTimes();
+        
+        // Update times every second
+        setInterval(updateAllTimes, 1000);
+    </script>
+</body>
+          </html>
